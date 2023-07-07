@@ -18,6 +18,7 @@ coverage
 /cypress/screenshots/
 
 # Editor directories and files
+.keys.pub
 .vscode/*
 !.vscode/extensions.json
 .idea
