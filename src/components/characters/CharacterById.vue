@@ -1,14 +1,28 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import { watchEffect } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useQuery } from '@tanstack/vue-query';
 import { getSingleCharacter } from '../../api/characters';
+import { Toast } from '../../utils/SwalToast';
 import RMLoader from '@/components/common/RMLoader.vue';
 
 const route = useRoute();
+const router = useRouter();
 
-const { isFetching, data: character } = useQuery({
+const { isFetching, data: character, isError } = useQuery({
     queryKey: ['character'],
-    queryFn: () => getSingleCharacter(+route.params.id)
+    queryFn: () => getSingleCharacter(+route.params.id),
+    retry: false
+});
+
+watchEffect(() => {
+    if (isError.value) {
+        router.push('/characters/list');
+        Toast.fire({
+            title: 'Error: The character could not be found',
+            icon: 'error'
+        });
+    }
 });
 </script>
 
