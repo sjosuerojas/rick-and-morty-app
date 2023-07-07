@@ -2,7 +2,7 @@ name: Deployment
 
 on:
   push:
-    branches: ['main']
+    branches: [main]
 
   workflow_dispatch:
 
@@ -37,10 +37,6 @@ jobs:
         env:
           VITE_URL_API: ${{ vars.VITE_URL_API }}
         run: npm run build
-      - name: Semantic Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx semantic-release 
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
