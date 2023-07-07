@@ -22,29 +22,31 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v3
-      - name: Set up Node 🔨
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: 'npm'
-      - name: Install dependencies🔌
+      - name: Install dependencies
         run: npm install
-      - name: Linter & Format Files 💅
+      - name: Linter & Format Files
         run: npm run lint && npm run format
-      - name: Build 🏗️
+      - name: Build
+        env:
+          VITE_URL_API: ${{ variables.VITE_URL_API }}
         run: npm run build
       - name: Semantic Release
-        env: 
+        env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx semantic-release 
-      - name: Setup Pages ⚙
+      - name: Setup Pages
         uses: actions/configure-pages@v3
-      - name: Upload artifact 😁
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: './dist'
-      - name: GitHub Pages 🚀
+      - name: GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
