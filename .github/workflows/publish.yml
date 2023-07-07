@@ -35,7 +35,7 @@ jobs:
         run: npm run lint && npm run format
       - name: Build
         env:
-          VITE_URL_API: ${{ variables.VITE_URL_API }}
+          VITE_URL_API: ${{ vars.VITE_URL_API }}
         run: npm run build
       - name: Semantic Release
         env:
