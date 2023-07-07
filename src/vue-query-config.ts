@@ -7,7 +7,7 @@ export const VueQuery = (app: App<Element>) => {
       defaultOptions: {
         queries: {
           refetchOnWindowFocus: false,
-          cacheTime: 1000 * 100
+          cacheTime: 1000 * 60
         }
       }
     }
