@@ -16,6 +16,7 @@
   "dependencies": {
     "@tanstack/vue-query": "^4.29.17",
     "axios": "^1.4.0",
+    "pinia": "^2.1.4",
     "sweetalert2": "^11.7.12",
     "vue": "^3.3.2",
     "vue-router": "4.2.2"

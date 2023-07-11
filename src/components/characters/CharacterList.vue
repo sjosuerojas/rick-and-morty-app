@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query";
-import { getCharacters } from '../../api/characters';
 import CharacterItem from '@/components/characters/CharacterItem.vue';
 import RMLoader from '@/components/common/RMLoader.vue';
 import RMError from '@/components/common/RMError.vue';
+import useCharacters from '../../hooks/useCharacter';
 
-const { isLoading, isError, data } = useQuery({
-    queryKey: ['character'],
-    queryFn: getCharacters,
-})
+const { characters, isLoading, isError } = useCharacters();
 </script>
 
 <template>
@@ -16,6 +12,6 @@ const { isLoading, isError, data } = useQuery({
     <r-m-error v-else-if="isError" />
 
     <div v-else class="row">
-        <character-item v-for="item of data?.results" :key="item.id" :character="item" />
+        <character-item v-for="character of characters" :key="character.id" :character="character" />
     </div>
 </template>

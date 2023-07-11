@@ -3,4 +3,5 @@ export type Tab = {
   active: boolean;
   disabled: boolean;
   link: string;
+  badge?: number;
 };
