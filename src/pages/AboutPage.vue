@@ -1,3 +1,9 @@
+<script setup lang="ts" >
+import CurrentPost from '@/components/characters/CurrentPost.vue';
+</script>
+
 <template>
-    <h2>About</h2>
+    <div class="row g-5">
+        <current-post />
+    </div>
 </template>

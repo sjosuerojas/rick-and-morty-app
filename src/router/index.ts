@@ -12,48 +12,33 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
-    component: HomePage,
-    meta: {
-      active: true
-    }
+    component: HomePage
   },
   {
     path: '/about',
     name: 'about',
-    component: AboutPage,
-    meta: {
-      active: false
-    }
+    component: AboutPage
   },
   {
     path: '/characters',
     redirect: '/characters/list',
     component: CharactersLayout,
-    meta: { active: false, name: 'characters' },
+    meta: { name: 'characters' },
     children: [
       {
         path: 'id/:id',
         name: 'characterId',
-        component: CharacterById,
-        meta: {
-          active: false
-        }
+        component: CharacterById
       },
       {
         path: 'list',
         name: 'characterList',
-        component: CharacterList,
-        meta: {
-          active: false
-        }
+        component: CharacterList
       },
       {
         path: 'search',
         name: 'characterSearch',
-        component: CharacterSearch,
-        meta: {
-          active: false
-        }
+        component: CharacterSearch
       }
     ]
   },

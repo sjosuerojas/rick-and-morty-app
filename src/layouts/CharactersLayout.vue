@@ -3,11 +3,9 @@ import { computed } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
 import type { Tab } from '@/models/navbar';
 import RMTabs from '@/components/common/RMTabs.vue';
-import useCharacters from '../hooks/useCharacter';
 
 const route = useRoute();
 const invalidRoute = computed(() => route.name !== 'characterId');
-const { count } = useCharacters();
 
 const items: Tab[] = [
     {
@@ -15,7 +13,6 @@ const items: Tab[] = [
         active: true,
         disabled: false,
         link: '/characters/list',
-        badge: count.value
     },
     {
         title: 'Characters Search',
@@ -27,7 +24,7 @@ const items: Tab[] = [
 </script>
 
 <template>
-    <h1>Rick and Morty</h1>
+    <h1>List of characters</h1>
     <div class="pt-5">
         <r-m-tabs v-if="invalidRoute" :items="items" />
         <router-view />
