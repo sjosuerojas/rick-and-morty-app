@@ -3,7 +3,7 @@ import { toRef } from 'vue';
 import type { Tab } from '@/models/navbar';
 
 interface Props {
-    items: Tab[]
+    items: Tab[],
 }
 
 const props = defineProps<Props>();

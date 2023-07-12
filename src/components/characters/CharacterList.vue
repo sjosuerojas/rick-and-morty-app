@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query";
-import { getCharacters } from '../../api/characters';
 import CharacterItem from '@/components/characters/CharacterItem.vue';
 import RMLoader from '@/components/common/RMLoader.vue';
+import RMError from '@/components/common/RMError.vue';
+import RMPagination from '@/components/common/RMPagination.vue';
+import useCharacters from '../../hooks/useCharacter';
 
-const { isLoading, data } = useQuery({
-    queryKey: ['character'],
-    queryFn: getCharacters,
-})
+const { characters, isLoading, isError, currentPage, totalPages, getPage } = useCharacters();
 </script>
 
 <template>
     <r-m-loader v-if="isLoading" :active="isLoading" />
+    <r-m-error v-else-if="isError" />
 
-    <div v-else class="row">
-        <character-item v-for="item of data?.results" :key="item.id" :character="item" />
+    <div v-else class="row row-cols-1 row-cols-md-2 g-4">
+        <character-item v-for="character of characters" :key="character.id" :character="character" />
     </div>
+    <r-m-pagination :total-pages="totalPages" :current-page="currentPage" @on-change-page="getPage" />
 </template>

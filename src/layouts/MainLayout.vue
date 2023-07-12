@@ -1,16 +1,14 @@
 <script setup lang="ts" >
+import RMThemeButton from '@/components/common/RMThemeButton.vue';
 import RMHeader from '@/components/common/RMHeader.vue';
-import RMCarosel from '@/components/common/RMCarosel.vue';
 import RMFooter from '@/components/common/RMFooter.vue';
 </script>
 
 <template>
+  <r-m-theme-button />
   <r-m-header />
-  <main>
-    <r-m-carosel />
-    <div class="container marketing">
-      <slot />
-    </div>
-    <r-m-footer />
+  <main class="container">
+    <slot />
   </main>
+  <r-m-footer />
 </template>

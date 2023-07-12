@@ -12,7 +12,7 @@ const items: Tab[] = [
         title: 'Characters List',
         active: true,
         disabled: false,
-        link: '/characters/list'
+        link: '/characters/list',
     },
     {
         title: 'Characters Search',
@@ -24,8 +24,8 @@ const items: Tab[] = [
 </script>
 
 <template>
-    <h1>Rick and Morty</h1>
-    <div class="pt-5">
+    <h1>List of characters</h1>
+    <div class="py-5">
         <r-m-tabs v-if="invalidRoute" :items="items" />
         <router-view />
     </div>
