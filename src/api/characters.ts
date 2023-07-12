@@ -3,9 +3,18 @@ import type { RickAndMorty, Character } from '@/models/character-api';
 
 export const http = axios.create({ baseURL: import.meta.env.VITE_URL_API });
 
-export const getCharacters = async (): Promise<RickAndMorty> => {
+export const getCharacters = async (page: number): Promise<RickAndMorty> => {
   try {
-    const { data } = await http.get<RickAndMorty>('/api/character');
+    const { data } = await http.get<RickAndMorty>(`/api/character/?page=${page}`);
+    return data;
+  } catch (error) {
+    throw new Error(`Characters not found: Details >> ${error}`);
+  }
+};
+
+export const getMultipleCharacters = async (characters: string): Promise<Character[]> => {
+  try {
+    const { data } = await http.get<Character[]>(`/api/character/${characters}`);
     return data;
   } catch (error) {
     throw new Error(`Characters not found: Details >> ${error}`);

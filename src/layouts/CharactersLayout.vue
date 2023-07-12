@@ -25,7 +25,7 @@ const items: Tab[] = [
 
 <template>
     <h1>List of characters</h1>
-    <div class="pt-5">
+    <div class="py-5">
         <r-m-tabs v-if="invalidRoute" :items="items" />
         <router-view />
     </div>
