@@ -1,5 +1,5 @@
 <script setup lang="ts" >
-import CurrentPost from '@/components/characters/CurrentPost.vue';
+import CurrentPost from '@/components/shared/CurrentPost.vue';
 </script>
 
 <template>

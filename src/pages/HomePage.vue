@@ -1,14 +1,14 @@
 <script setup lang="ts" >
-import BannerCharacter from '@/components/characters/BannerCharacter.vue';
+import CharacterBanner from '@/components/characters/CharacterBanner.vue';
 import LatestCharacters from '@/components/characters/LatestCharacters.vue';
-import CurrentPost from '@/components/characters/CurrentPost.vue';
-import AsidePost from '@/components/characters/AsidePost.vue';
+import CurrentPost from '@/components/shared/CurrentPost.vue';
+import AsidePost from '@/components/shared/AsidePost.vue';
 </script>
 
 <template>
-    <banner-character />
+    <character-banner />
     <latest-characters />
-    <div class="row g-5">
+    <div class="row">
         <current-post />
         <aside-post />
     </div>

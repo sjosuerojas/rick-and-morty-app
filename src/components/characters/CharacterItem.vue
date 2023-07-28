@@ -14,7 +14,7 @@ const character = toRef(props, 'character');
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img :src="character.image" class="img-fluid rounded-start" :alt="character.name" />
+                    <img :src="character.image" class="w-100 rounded-start" :alt="character.name" />
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
