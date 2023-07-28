@@ -3,7 +3,7 @@ import CharacterItem from '@/components/characters/CharacterItem.vue';
 import RMLoader from '@/components/common/RMLoader.vue';
 import RMError from '@/components/common/RMError.vue';
 import RMPagination from '@/components/common/RMPagination.vue';
-import useCharacters from '../../hooks/useCharacter';
+import { useCharacters } from '../../hooks/useCharacters';
 
 const { characters, isLoading, isError, currentPage, totalPages, getPage } = useCharacters();
 </script>
