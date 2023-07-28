@@ -1,19 +1,14 @@
 <script setup lang="ts">
 import { watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useQuery } from '@tanstack/vue-query';
-import { getSingleCharacter } from '../../api/characters';
 import { Toast } from '../../utils/SwalToast';
 import RMLoader from '@/components/common/RMLoader.vue';
+import { useCurrentCharacter } from '../../hooks/useCharacters';
 
 const route = useRoute();
 const router = useRouter();
 
-const { isFetching, data: character, isError } = useQuery({
-    queryKey: ['character'],
-    queryFn: () => getSingleCharacter(+route.params.id),
-    retry: false
-});
+const { currentCharacter: character, isFetching, isError } = useCurrentCharacter(+route.params.id);
 
 watchEffect(() => {
     if (isError.value) {

@@ -4,8 +4,13 @@ import type { Character } from '@/models/character-api';
 
 export const useCharacterStore = defineStore('characters', () => {
   const characters = ref<Character[]>([]);
+  const currentCharacter = ref<Character>();
   const currentPage = ref<number>(1);
   const totalPages = ref<number>(5);
+
+  function setCurrentCharacter(_character: Character) {
+    currentCharacter.value = _character;
+  }
 
   function setCharacters(_characters: Character[]) {
     characters.value = _characters;
@@ -18,9 +23,10 @@ export const useCharacterStore = defineStore('characters', () => {
 
   return {
     characters,
+    currentCharacter,
     currentPage,
     totalPages,
-
+    setCurrentCharacter,
     setCharacters,
     setPageCharacter
   };
