@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 import HomePage from '@/pages/HomePage.vue';
 import AboutPage from '@/pages/AboutPage.vue';
@@ -49,7 +49,7 @@ export const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes
 });
 
