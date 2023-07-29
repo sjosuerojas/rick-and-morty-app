@@ -29,3 +29,12 @@ export const getSingleCharacter = async (id: number): Promise<Character> => {
     throw new Error(`Character ${id} not found: Details >> ${error}`);
   }
 };
+
+export const getFilteredCharacter = async (query: string): Promise<RickAndMorty> => {
+  try {
+    const { data } = await http.get<RickAndMorty>(`/api/character/?name=${query}`);
+    return data;
+  } catch (error) {
+    throw new Error(`Character ${query} not found: Details >> ${error}`);
+  }
+};
