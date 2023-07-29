@@ -1,4 +1,4 @@
-# Rick and Morty application (Use of VueQuery + Vite, Vue.js 3, Compisition API)
+# Rick and Morty application (Use of VueQuery + Vite, Vue.js 3, Composition API)
 
 This template should help get you started developing with Vue 3 in Vite.
 
