@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import { useQuery } from '@tanstack/vue-query';
-import { getMultipleCharacters } from '../../api/characters';
 import PlaceholderCard from '@/components/shared/PlaceholderCard.vue';
+import { useLatestCharacters } from '../../hooks/useCharacters';
 
-const { data: characters, isFetching } = useQuery({
-    queryKey: ['character'],
-    queryFn: () => getMultipleCharacters("2,4"),
-    retry: false
-});
+const { latestCharacters: characters, isFetching } = useLatestCharacters();
 </script>
 
 <template>
