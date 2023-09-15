@@ -32,7 +32,7 @@ export const getSingleCharacter = async (id: number): Promise<Character> => {
 
 export const getFilteredCharacter = async (query: string): Promise<RickAndMorty> => {
   try {
-    const { data } = await http.get<RickAndMorty>(`/api/character/?name=${query}`);
+    const { data } = await http.get<RickAndMorty>(`/api/character/?${new URLSearchParams(query).toString()}`);
     return data;
   } catch (error) {
     throw new Error(`Character ${query} not found: Details >> ${error}`);
