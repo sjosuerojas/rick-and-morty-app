@@ -46,3 +46,15 @@ export enum Status {
   Dead = 'Dead',
   Unknown = 'unknown'
 }
+
+export interface SearchType {
+  name: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
+}
+
+export interface OptionalSearchFilter extends Partial<SearchType> {
+  name: string;
+}

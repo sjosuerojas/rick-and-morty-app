@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { RickAndMorty, Character } from '@/models/character-api';
+import type { RickAndMorty, Character, OptionalSearchFilter } from '@/models/character-api';
 
 export const http = axios.create({ baseURL: import.meta.env.VITE_URL_API });
 
@@ -30,9 +30,11 @@ export const getSingleCharacter = async (id: number): Promise<Character> => {
   }
 };
 
-export const getFilteredCharacter = async (query: string): Promise<RickAndMorty> => {
+export const getFilteredCharacter = async (query: OptionalSearchFilter): Promise<RickAndMorty> => {
   try {
-    const { data } = await http.get<RickAndMorty>(`/api/character/?${new URLSearchParams(query).toString()}`);
+    const { data } = await http.get<RickAndMorty>(
+      `/api/character/?${new URLSearchParams({ ...query }).toString()}`
+    );
     return data;
   } catch (error) {
     throw new Error(`Character ${query} not found: Details >> ${error}`);
