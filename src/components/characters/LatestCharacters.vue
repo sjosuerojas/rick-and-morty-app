@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PlaceholderCard from '@/components/shared/PlaceholderCard.vue';
-import { useLatestCharacters } from '../../hooks/useCharacters';
+import { useLatestCharacters } from '../../hooks/useLatestCharacters';
 
 const { latestCharacters: characters, isFetching } = useLatestCharacters();
 </script>
