@@ -1,9 +1,9 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import type { Character } from '@/models/character-api';
+import type { Character, ResultSearch } from '@/models/character-api';
 
 export const useCharacterStore = defineStore('characters', () => {
-  const characters = ref<Character[]>([]);
+  const characters = ref<ResultSearch>([]);
   const currentCharacter = ref<Character>();
   const latestCharacters = ref<Character[]>([]);
   const currentPage = ref<number>(1);
@@ -17,7 +17,7 @@ export const useCharacterStore = defineStore('characters', () => {
     currentCharacter.value = _character;
   }
 
-  function setCharacters(_characters: Character[]) {
+  function setCharacters(_characters: ResultSearch) {
     characters.value = _characters;
   }
 
