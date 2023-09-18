@@ -41,7 +41,7 @@ const handleSearch = async () => {
     <div class="container position-relative">
         <div class="row justify-content-center">
             <div class="col-xl-6">
-                <div class="text-center text-white">
+                <div class="text-center">
                     <h1 class="mb-5">Search for characters, episodes, location from the API!</h1>
                     <div class="row">
                         <div class="col">

@@ -3,7 +3,7 @@ import { watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Toast } from '../../utils/SwalToast';
 import RMLoader from '@/components/common/RMLoader.vue';
-import { useCurrentCharacter } from '../../hooks/useCharacters';
+import { useCurrentCharacter } from '../../hooks/useCurrentCharacter';
 
 const route = useRoute();
 const router = useRouter();
