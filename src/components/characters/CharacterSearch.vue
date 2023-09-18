@@ -1,34 +1,39 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Toast } from '../../utils/SwalToast';
 import RMAlert from '@/components/common/RMAlert.vue';
 import CharacterItem from '@/components/characters/CharacterItem.vue';
-import type { RickAndMorty, Character, OptionalSearchFilter } from '../../models/character-api';
+import CharacterLocation from '@/components/characters/CharacterLocation.vue';
+import CharacterEpisode from '@/components/characters/CharacterEpisode.vue';
+import type {
+    RickAndMorty,
+    ResultSearch,
+    Character,
+    FilterSearchType,
+    LocationType,
+    EpisodeType
+} from '../../models/character-api';
 import { getFilteredCharacter } from '../../api/characters';
 
-const characters = ref<Character[]>([]);
 const searchInput = ref<string>('');
-const preBuildSearch = ref<OptionalSearchFilter>({ name: '' });
-const searchOptions: string[] = ['Rick Sanchez', 'Morty Smith', 'Johnny Depp', 'Beth Smith'];
+const result = ref<ResultSearch>([]);
+const searchByFilter = ref<FilterSearchType>('character');
+const searchOptions: string[] = [
+    'Rick Sanchez',
+    'Citadel of Ricks',
+    'Johnny Depp',
+    'Close Rick-counters of the Rick Kind'
+];
 
-const handleSearch = async () => {
-    const response: RickAndMorty = await getFilteredCharacter({ name: searchInput.value });
-    characters.value = response.results;
+const selectOption = (currentOption: FilterSearchType) => {
+    result.value.length = 0;
+    searchByFilter.value = currentOption;
 };
 
-const handleFilter = async () => {
-    if (!searchInput.value) {
-        Toast.fire({
-            title: 'Type something to search first',
-            icon: 'error'
-        });
-
-        return;
-    }
-
-    preBuildSearch.value = { name: searchInput.value, status: 'alive' };
-    const response: RickAndMorty = await getFilteredCharacter(preBuildSearch.value);
-    characters.value = response.results;
+const handleSearch = async () => {
+    const response: RickAndMorty = await getFilteredCharacter(searchByFilter.value, {
+        name: searchInput.value
+    });
+    result.value = response.results;
 };
 </script>
 
@@ -40,19 +45,26 @@ const handleFilter = async () => {
                     <h1 class="mb-5">Search for characters, episodes, location from the API!</h1>
                     <div class="row">
                         <div class="col">
-                            <input v-model="searchInput" class="form-control form-control-lg" list="searchOptions"
-                                type="email" placeholder="Type to search..." />
-                            <datalist id="searchOptions">
-                                <option v-for="option in searchOptions" :key="option" :value="option" />
-                            </datalist>
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Search by [{{ searchByFilter }}]
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" @click="selectOption('character')">Character</a></li>
+                                    <li><a class="dropdown-item" @click="selectOption('location')">Location</a></li>
+                                    <li><a class="dropdown-item" @click="selectOption('episode')">Episode </a></li>
+                                </ul>
+                                <input v-model="searchInput" class="form-control form-control-lg" list="searchOptions"
+                                    type="text" placeholder="Type to search..." />
+                                <datalist id="searchOptions">
+                                    <option v-for="option in searchOptions" :key="option" :value="option" />
+                                </datalist>
+                            </div>
                         </div>
                         <div class="col-auto">
-                            <button v-if="searchInput.length && !characters.length" class="btn btn-outline-primary btn-lg"
-                                type="button" @click="handleSearch">
+                            <button class="btn btn-outline-primary btn-lg" type="button" @click="handleSearch">
                                 Search
-                            </button>
-                            <button v-else class="btn btn-outline-danger btn-lg" type="button" @click="characters = []">
-                                Reset
                             </button>
                         </div>
                     </div>
@@ -60,24 +72,24 @@ const handleFilter = async () => {
             </div>
         </div>
 
-        <div class="row align-items-md-stretch py-5">
-            <div class="col-12 col-md-6">
-                <div class="h-100 p-5 text-bg-dark rounded-3">
-                    <h2>Change the background</h2>
-                    <p>
-                        Swap the background-color utility and add a `.text-*` color utility to mix up the
-                        jumbotron look. Then, mix and match with additional component themes and more.
-                    </p>
-                    <button class="btn btn-outline-light mb-5" type="button">Example button</button>
-                    <r-m-alert text="You are watching episode schema" variant="success" />
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
+        <div class="row justify-content-center align-items-center py-5">
+            <div class="col-8">
                 <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-                    <r-m-alert text="You are watching characters schema" variant="primary" />
-                    <h2 class="pb-3">Characters</h2>
-                    <template v-if="characters.length">
-                        <character-item v-for="character of characters" :key="character.id" :character="character" />
+                    <r-m-alert :text="`You are watching ${searchByFilter} schema`" variant="primary" />
+                    <h2 class="pb-3 pt-4 text-capitalize">Results</h2>
+                    <template v-if="result.length">
+                        <template v-if="searchByFilter === 'character'">
+                            <character-item v-for="character of (result as Character[])" :key="character.id"
+                                :character="character" />
+                        </template>
+                        <template v-if="searchByFilter === 'episode'">
+                            <character-episode v-for="episode of (result as EpisodeType[])" :key="episode.id"
+                                :episode="episode" />
+                        </template>
+                        <template v-if="searchByFilter === 'location'">
+                            <character-location v-for="location of (result as LocationType[])" :key="location.id"
+                                :location="location" />
+                        </template>
                     </template>
                     <template v-else>
                         <p>
@@ -85,9 +97,7 @@ const handleFilter = async () => {
                             can even include species, by the given type, by the given gender (female, male,
                             genderless or unknown).
                         </p>
-                        <button class="btn btn-outline-secondary" type="button" @click="handleFilter">
-                            Filter by name & status
-                        </button>
+                        <button class="btn btn-outline-secondary" type="button">Filter by name & status</button>
                     </template>
                 </div>
             </div>
